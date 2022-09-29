@@ -1,18 +1,49 @@
 import React from "react";
 import { Route, Link } from "react-router-dom";
 
-import Home from "components/Home";
-import Login from "components/Login";
+import TabBarLayout, { TabInterface } from "Layout/TabBarLayout/index";
+
+import ProvideAuth from "context/Auth";
+
+import TodoList from "pages/TodoList/index";
+import Login from "pages/Login";
+import PrivateRoute from "components/PrivateRoute";
 
 function App() {
+  const tabList = [
+    {
+      path: "/",
+      component: (
+        <Route path="/">
+          <Login />
+        </Route>
+      ),
+      name: "登录",
+    },
+    {
+      path: "/profile",
+      component: (
+        <PrivateRoute path="/profile">
+          <div />
+        </PrivateRoute>
+      ),
+      name: "个人中心",
+    },
+    {
+      path: "/todoList",
+      component: (
+        <PrivateRoute path="/todoList">
+          <TodoList />
+        </PrivateRoute>
+      ),
+      name: "TodoList",
+    },
+  ];
+
   return (
-    <div>
-      <p>路由测试页面:</p>
-      <Link to="/home">首页</Link>
-      <Link to="/login">登录</Link>
-      <Route path="/home" component={Home} />
-      <Route path="/login" component={Login} />
-    </div>
+    <ProvideAuth>
+      <TabBarLayout tabList={tabList} />
+    </ProvideAuth>
   );
 }
 

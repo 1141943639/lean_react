@@ -43,6 +43,7 @@ module.exports = {
     "prefer-promise-reject-errors": "error",
     "require-await": "warn",
     "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-explicit-any": "off",
   },
   overrides: [
     {

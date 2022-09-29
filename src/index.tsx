@@ -5,6 +5,12 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 
+import "tailwindcss/tailwind.css";
+import get from "lodash/get";
+
+const _window = window as any;
+_window.get = get;
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
