@@ -2,15 +2,34 @@
 {
   "language": "中文",
   "tabBar": {
-    "login": "登录",
+    "login": "登录页",
     "home": "首页",
-    "todoList": "todoList"
+    "todoList": "待办事项列表"
   },
   "home": {
     "todoListLink": "点击<Link>todoList</Link>打开",
     "username": "欢迎您 {{username}}!"
   },
   "login": {
-    "title": "登录页"
+    "title": "登录页",
+    "form": {
+      "username": {
+        "label": "用户名",
+        "valid": {
+          "required": "登录名必填",
+          "incorrectFormat": "登录名格式不正确"
+        },
+        "placeholder": "最小10位, 不能包括特殊符号"
+      },
+      "pwd": {
+        "label": "密码",
+        "valid": {
+          "notLongEnough": "密码⻓度不够",
+          "notSafeEnough": "密码不够安全"
+        },
+        "placeholder": "最小10位, 必须包括⼤⼩写和数字和特殊符号!@#$"
+      }
+    },
+    "formButton":"登录"
   }
 }

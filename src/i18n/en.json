@@ -2,7 +2,7 @@
 {
   "language": "English",
   "tabBar": {
-    "login": "login",
+    "login": "loginPage",
     "home": "home",
     "todoList": "todoList"
   },
@@ -11,6 +11,25 @@
     "username": "Welcome {{username}}!"
   },
   "login": {
-    "title": "Login Page"
+    "title": "Login Page",
+    "form": {
+      "username": {
+        "label": "User name",
+        "valid": {
+          "required": "Login required",
+          "incorrectFormat": "The login name is not in the correct format"
+        },
+        "placeholder": "Minimum 10 digits, cannot include special symbols"
+      },
+      "pwd": {
+        "label": "Password",
+        "valid": {
+          "notLongEnough": "Password is not long enough",
+          "notSafeEnough": "Password is not secure enough"
+        },
+        "placeholder": "Minimum 10 digits, must include uppercase and lowercase and numbers and special symbols!@#$"
+      }
+    },
+    "formButton": "Login"
   }
 }
