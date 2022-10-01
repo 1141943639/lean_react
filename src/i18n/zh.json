@@ -1,0 +1,16 @@
+
+{
+  "language": "中文",
+  "tabBar": {
+    "login": "登录",
+    "home": "首页",
+    "todoList": "todoList"
+  },
+  "home": {
+    "todoListLink": "点击<Link>todoList</Link>打开",
+    "username": "欢迎您 {{username}}!"
+  },
+  "login": {
+    "title": "登录页"
+  }
+}

@@ -1,0 +1,16 @@
+
+{
+  "language": "English",
+  "tabBar": {
+    "login": "login",
+    "home": "home",
+    "todoList": "todoList"
+  },
+  "home": {
+    "todoListLink": "click to <Link to=\"/todoList\">TodoList</Link>",
+    "username": "Welcome {{username}}!"
+  },
+  "login": {
+    "title": "Login Page"
+  }
+}

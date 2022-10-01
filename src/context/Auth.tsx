@@ -14,8 +14,12 @@ const fakeAuth = {
   },
 };
 
+interface SigninData {
+  username: string;
+  pwd: string;
+}
 interface ProvideAuth {
-  signin: () => Promise<void>;
+  signin: (data: SigninData) => Promise<void>;
   signout: () => Promise<void>;
   user: string;
 }
@@ -23,9 +27,9 @@ interface ProvideAuth {
 const useProvideAuth = () => {
   const [user, setUser] = useState("");
 
-  const signin = async () => {
+  const signin = async (data: SigninData) => {
     await new Promise((resolve) => fakeAuth.signin(resolve));
-    setUser("user");
+    setUser(data.username);
   };
 
   const signout = async () => {
@@ -52,4 +56,5 @@ const Auth: React.FC<IProps> = (props) => {
 };
 
 export default Auth;
-export const useAuth = () => useContext(authContext) as ProvideAuth;
+export const useAuth = (): ProvideAuth =>
+  useContext(authContext) as ProvideAuth;
