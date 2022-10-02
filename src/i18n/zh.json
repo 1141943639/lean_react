@@ -31,5 +31,11 @@
       }
     },
     "formButton":"登录"
-  }
+  },
+  "todoList": {
+    "addBtn": "添加",
+    "editBtn": "编辑",
+    "delBtn": "删除"
+  },
+  "noMatch": "找不到页面"
 }

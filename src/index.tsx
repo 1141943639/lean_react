@@ -3,14 +3,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "./i18n/config";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import "tailwindcss/tailwind.css";
-import get from "lodash/get";
-
-const _window = window as any;
-_window.get = get;
+import "./i18n/config";
+import Layout from "Layout";
+import BaseRoute from "components/BaseRoute";
+import NoMatch from "pages/NoMatch";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -18,7 +17,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <Layout>
+        <App />
+      </Layout>
     </Router>
   </React.StrictMode>
 );

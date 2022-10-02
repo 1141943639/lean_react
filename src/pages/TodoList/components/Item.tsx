@@ -1,5 +1,7 @@
 import React, { useState, useEffect, FormEvent, KeyboardEvent } from "react";
 
+import { useTranslation } from "react-i18next";
+
 import { Item as ItemInterface } from "pages/TodoList/interface/index";
 
 interface IProps {
@@ -12,6 +14,7 @@ const Item: React.FC<IProps> = (props) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editValue, setEditValue] = useState("");
   const { data = {} as ItemInterface } = props || {};
+  const { t } = useTranslation();
 
   const handleClickEdit = () => {
     setIsEdit(true);
@@ -46,8 +49,8 @@ const Item: React.FC<IProps> = (props) => {
       )}
 
       <div>
-        <button onClick={handleClickEdit}>编辑</button>
-        <button onClick={handleClickDelete}>删除</button>
+        <button onClick={handleClickEdit}>{t("todoList.editBtn")}</button>
+        <button onClick={handleClickDelete}>{t("todoList.delBtn")}</button>
       </div>
     </div>
   );

@@ -1,0 +1,14 @@
+import React from "react";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import store, { persist } from "store";
+
+const Layout = (props: { children: React.ReactNode }) => {
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persist}>{props.children}</PersistGate>
+    </Provider>
+  );
+};
+
+export default Layout;

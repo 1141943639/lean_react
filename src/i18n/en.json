@@ -31,5 +31,11 @@
       }
     },
     "formButton": "Login"
-  }
+  },
+  "todoList": {
+    "addBtn": "add",
+    "editBtn": "edit",
+    "delBtn": "delete"
+  },
+  "noMatch": "Not Found Page"
 }

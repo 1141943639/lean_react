@@ -1,6 +1,7 @@
 import React, { useState, MouseEvent, KeyboardEvent } from "react";
 
 import { v4 as uuid } from "uuid";
+import { useTranslation } from "react-i18next";
 
 import { Item as ItemInterFace } from "../interface/index";
 
@@ -12,6 +13,7 @@ const ENTER_KEY = "Enter";
 
 const AddInput: React.FC<IProps> = (props) => {
   const [addInput, setAddInput] = useState("");
+  const { t } = useTranslation();
 
   const handleInput = (e: MouseEvent<HTMLInputElement>) => {
     setAddInput(e.currentTarget.value);
@@ -37,7 +39,7 @@ const AddInput: React.FC<IProps> = (props) => {
   return (
     <div>
       <input onKeyDown={handleKeyDown} value={addInput} onInput={handleInput} />
-      <button onClick={handleClick}>添加</button>
+      <button onClick={handleClick}>{t("todoList.addBtn")}</button>
     </div>
   );
 };

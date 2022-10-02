@@ -1,4 +1,6 @@
 import React, { useContext, useState } from "react";
+import { setUser, selectAuth } from "slice/auth";
+import { useAppDispatch, useAppSelector } from "hooks";
 
 const authContext = React.createContext({});
 
@@ -25,11 +27,12 @@ interface ProvideAuth {
 }
 
 const useProvideAuth = () => {
-  const [user, setUser] = useState("");
+  const { user } = useAppSelector(selectAuth);
+  const dispatch = useAppDispatch();
 
   const signin = async (data: SigninData) => {
     await new Promise((resolve) => fakeAuth.signin(resolve));
-    setUser(data.username);
+    dispatch(setUser(data.username));
   };
 
   const signout = async () => {
