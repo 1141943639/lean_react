@@ -26,4 +26,4 @@ export const { setTodoList } = todoListSlice.actions;
 export default todoListSlice.reducer;
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectLanguage = (state: RootState) => state.todoList;
+export const selectTodoList = (state: RootState) => state.todoList;

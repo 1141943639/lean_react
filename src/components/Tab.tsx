@@ -10,16 +10,14 @@ export default React.forwardRef(function Tab(
   ref: React.ForwardedRef<HTMLButtonElement>
 ) {
   return (
-    <div>
-      <TabUnstyled
-        {...props}
-        componentsProps={{
-          root: (state: TabUnstyledOwnerState) => ({
-            className: "",
-          }),
-        }}
-        ref={ref}
-      />
-    </div>
+    <TabUnstyled
+      {...props}
+      componentsProps={{
+        root: (state: TabUnstyledOwnerState) => ({
+          className: "bg-white w-12 h-full",
+        }),
+      }}
+      ref={ref}
+    />
   );
 });

@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useRef } from "react";
 
-import { useAuth } from "context/Auth";
 import { Trans, useTranslation } from "react-i18next";
+import { setUser, selectUser } from "slice/auth";
+import { useAppDispatch, useAppSelector } from "hooks";
+import { useSigninMutation } from "api/user";
+
+import { User } from "interface/user";
 
 import * as Yup from "yup";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import { isEmpty } from "lodash";
+import { useHistory } from "react-router-dom";
 
 interface FormData {
   username: string;
@@ -13,24 +19,76 @@ interface FormData {
 
 type FormField = "username" | "pwd";
 
+interface SigninData {
+  username: string;
+  pwd: string;
+}
+
 export default function Login() {
-  const { signin } = useAuth();
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const [signin, { isLoading }] = useSigninMutation();
+  const history = useHistory();
+
+  const handleSignin = async (data: SigninData) => {
+    try {
+      const { data: userDataArr } = (await signin(data.username)) as {
+        data: Array<User>;
+      };
+
+      if (isEmpty(userDataArr)) {
+        return console.log("找不到用户");
+      }
+
+      const user = userDataArr[0];
+
+      dispatch(setUser(user));
+      history.push("/test/home");
+    } catch (err) {
+      console.log(
+        "%c [  ]-44",
+        "font-size:13px; background:pink; color:#bf2c9f;",
+        "登录失败"
+      );
+      throw err;
+    }
+  };
+
+  const formOption = [
+    {
+      name: "username",
+      label: t("login.form.username.label"),
+      fieldProps: {
+        type: "text",
+        placeholder: t("login.form.username.placeholder"),
+      },
+      ErrorRef: useRef(null),
+    },
+    {
+      name: "pwd",
+      label: t("login.form.pwd.label"),
+      fieldProps: {
+        type: "text",
+        placeholder: t("login.form.pwd.placeholder"),
+      },
+      ErrorRef: useRef(null),
+    },
+  ];
 
   return (
-    <>
-      <Trans i18nKey="login.title" />
+    <div className="w-full h-full flex flex-col justify-center items-center">
+      <div className="text-3xl font-bold mb-6">{t("login.title")}</div>
       <Formik
         initialValues={{ username: "", pwd: "" }}
         validationSchema={Yup.object({
           username: Yup.string()
             .required(t("login.form.username.valid.required"))
-            .min(10, t("login.form.username.valid.incorrectFormat"))
+            // .min(10, t("login.form.username.valid.incorrectFormat"))
             .test(
               "format",
               t("login.form.username.valid.incorrectFormat"),
               (value) => {
-                if (/[@!#$~%^}&*()_+\-={}[\]:";'<>,.?/|\\]+/g.test(value || ""))
+                if (/[@!#$~%^}&*()+\-={}[\]:";'<>,.?/|\\]+/g.test(value || ""))
                   return false;
                 return true;
               }
@@ -44,33 +102,49 @@ export default function Login() {
             .matches(/[!@#$]+/g, t("login.form.pwd.valid.notSafeEnough")),
         })}
         onSubmit={(values, { setSubmitting }) => {
-          signin(values);
+          handleSignin(values);
           setSubmitting(false);
         }}
       >
-        <Form>
-          <div>
-            <label htmlFor="username">{t("login.form.username.label")}</label>
-            <Field
-              name="username"
-              type="text"
-              placeholder={t("login.form.username.placeholder")}
-            />
-            <ErrorMessage name="username" />
-          </div>
-          <div>
-            <label htmlFor="pwd">{t("login.form.pwd.label")}</label>
-            <Field
-              name="pwd"
-              type="text"
-              placeholder={t("login.form.pwd.placeholder")}
-            />
-            <ErrorMessage name="pwd" />
-          </div>
+        {(form) => {
+          return (
+            <Form>
+              {formOption.map(({ fieldProps, name, label }) => {
+                const error = form.errors[name as FormField];
+                const touched = form.touched[name as FormField];
 
-          <button type="submit">{t("login.formButton")}</button>
-        </Form>
+                return (
+                  <div className="flex flex-col mb-5 relative" key={name}>
+                    <label className="mb-1 block w-20 font-bold" htmlFor={name}>
+                      {label}
+                    </label>
+                    <Field
+                      className={[
+                        "relative focus-visible:outline-none rounded-md border-2 px-2 py-1",
+                        error && touched ? "border-red-500" : "",
+                      ].join(" ")}
+                      name={name}
+                      {...fieldProps}
+                    />
+                    <div className="text-red-500">
+                      <ErrorMessage name={name} />
+                    </div>
+                  </div>
+                );
+              })}
+
+              <div className="flex justify-center w-full mt-8">
+                <button
+                  className="px-5 py-1 rounded-md bg-blue-500 text-white"
+                  type="submit"
+                >
+                  {t("login.formButton")}
+                </button>
+              </div>
+            </Form>
+          );
+        }}
       </Formik>
-    </>
+    </div>
   );
 }

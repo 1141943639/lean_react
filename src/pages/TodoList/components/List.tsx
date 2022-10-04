@@ -9,7 +9,17 @@ import {
 
 interface IProps {
   list: ListInterface;
-  onChangeList: (list: ListInterface) => void;
+  onChangeList?: (
+    editItem: ItemInterFace,
+    value: string,
+    index: number,
+    list: ListInterface
+  ) => void;
+  onDeleteItem?: (
+    item: ItemInterFace,
+    index: number,
+    list: ListInterface
+  ) => void;
 }
 
 const List: React.FC<IProps> = (props) => {
@@ -20,18 +30,15 @@ const List: React.FC<IProps> = (props) => {
 
     if (!data) return;
 
-    data.value = value;
-
-    props.onChangeList?.([...list]);
+    props.onChangeList?.(data, value, index, list);
   };
 
   const handleDeleteItem = (index: number) => {
-    list.splice(index, 1);
-    props.onChangeList?.([...list]);
+    props.onDeleteItem?.(list[index], index, list);
   };
 
   return (
-    <div>
+    <div className="overflow-y-auto flex-1 p-3">
       <ul>
         {list.map((item, index) => (
           <li key={item.id}>

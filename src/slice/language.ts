@@ -10,7 +10,7 @@ const initialState: LanguageState = {
 };
 
 export const languageSlice = createSlice({
-  name: "auth",
+  name: "language",
   initialState,
   reducers: {
     setLanguage(state, action: PayloadAction<string>) {

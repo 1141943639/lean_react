@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "context/Auth";
+import { selectUser } from "slice/auth";
+import { useAppSelector } from "hooks";
 import { Trans } from "react-i18next";
 
 const Profile: React.FC = () => {
-  const { user } = useAuth();
+  const { user } = useAppSelector(selectUser);
 
   return (
     <div>
@@ -12,14 +13,14 @@ const Profile: React.FC = () => {
         <Trans
           i18nKey="home.username"
           values={{
-            username: user,
+            username: user.name,
           }}
         />
       </h3>
       <Trans
         i18nKey="home.todoListLink"
         components={{
-          Link: <Link to="/todoList" />,
+          Link: <Link to="/test/todoList" />,
         }}
       />
     </div>

@@ -7,12 +7,17 @@ module.exports = {
     "./src/**/*.tsx",
   ],
   theme: {
-    extend: {},
+    extend: {
+      zIndex: {
+        "-1": "-1",
+        1200: "1200",
+      },
+    },
   },
   plugins: [],
   // 添加下面的代码,禁用 `清除浏览器默认样式`
   // (这样 `@tailwind base` 就只会添加一些默认的 tw 变量.不会去清除浏览器默认样式了.)
   corePlugins: {
-    preflight: false,
+    // preflight: false,
   },
 };

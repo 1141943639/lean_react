@@ -3,14 +3,20 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+import middleware from "middleware";
+
 import auth from "slice/auth";
 import language from "slice/language";
 import todoList from "slice/todoList";
+import userSlice from "api/user";
+import todosSlice from "api/todos";
 
 const reducer = {
   auth,
   language,
   todoList,
+  [userSlice.reducerPath]: userSlice.reducer,
+  [todosSlice.reducerPath]: todosSlice.reducer,
 };
 
 const persistConfig = {
@@ -25,6 +31,11 @@ const persistedReducer = persistReducer(
 
 const store = configureStore({
   reducer: persistedReducer,
+  middleware: (...arg) => [
+    ...middleware(...arg),
+    userSlice.middleware,
+    todosSlice.middleware,
+  ],
 });
 
 export default store;

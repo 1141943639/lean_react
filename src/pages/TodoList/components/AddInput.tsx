@@ -24,7 +24,7 @@ const AddInput: React.FC<IProps> = (props) => {
 
     props.onAdd({
       id: uuid(),
-      value: addInput,
+      title: addInput,
     });
 
     setAddInput("");
@@ -37,9 +37,21 @@ const AddInput: React.FC<IProps> = (props) => {
   };
 
   return (
-    <div>
-      <input onKeyDown={handleKeyDown} value={addInput} onInput={handleInput} />
-      <button onClick={handleClick}>{t("todoList.addBtn")}</button>
+    <div className="flex mb-2 flex-shrink-0 w-full justify-center h-10">
+      <div className="border-2 border-r-0 rounded-r-none rounded-md flex justify-center items-center">
+        <input
+          className="focus-visible:outline-none px-2"
+          onKeyDown={handleKeyDown}
+          value={addInput}
+          onInput={handleInput}
+        />
+      </div>
+      <button
+        className="w-16 bg-blue-400 text-white rounded-l-none rounded-md"
+        onClick={handleClick}
+      >
+        {t("todoList.addBtn")}
+      </button>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 export interface Item {
   id: string;
-  value: string;
+  title: string;
 }
 
 export type List = Array<Item>;
