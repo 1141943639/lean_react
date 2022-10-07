@@ -14,7 +14,7 @@ export default React.forwardRef(function Tab(
       {...props}
       componentsProps={{
         root: (state: TabUnstyledOwnerState) => ({
-          className: "bg-white w-12 h-full",
+          className: "bg-white h-full",
         }),
       }}
       ref={ref}

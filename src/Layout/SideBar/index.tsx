@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import { Route, useHistory, useLocation, Switch } from "react-router-dom";
 
 import Tab from "components/Tab";
@@ -17,9 +17,10 @@ type TabList = Array<TabInterface>;
 interface IProps {
   tabList: TabList;
   defaultValue?: any;
+  onClickTab?: () => void;
 }
 
-const TabBarLayout: React.FC<IProps> = (props) => {
+const SideBar = (props: IProps, ref: React.Ref<HTMLDivElement>) => {
   const { tabList = [] as TabList } = props || ({} as IProps);
   const defaultValue = props.defaultValue || tabList?.[0]?.path;
   const history = useHistory();
@@ -29,6 +30,7 @@ const TabBarLayout: React.FC<IProps> = (props) => {
   const handleClickTab = (item: TabInterface) => {
     history.push(item.path);
     setActiveTab(item);
+    props.onClickTab?.();
   };
 
   const checkIsActive = (item: TabInterface) => {
@@ -40,14 +42,17 @@ const TabBarLayout: React.FC<IProps> = (props) => {
   };
 
   return (
-    <TabsUnstyled className="bg-white flex-shrink-0 h-full w-full p-3">
+    <TabsUnstyled
+      ref={ref}
+      className="bg-white flex-shrink-0 h-full w-full p-3"
+    >
       <TabsListUnstyled className="flex flex-col justify-around">
         {tabList.map((item: TabInterface) => (
           <Tab
             onClick={() => handleClickTab(item)}
             key={item.path}
             className={[
-              "flex flex-1 p-2 rounded-md w-full items-center h-full fill-current",
+              "flex p-2 rounded-md w-full items-center h-full fill-current",
               checkIsActive(item),
             ]
               .filter((val) => val)
@@ -64,4 +69,4 @@ const TabBarLayout: React.FC<IProps> = (props) => {
   );
 };
 
-export default TabBarLayout;
+export default forwardRef(SideBar);

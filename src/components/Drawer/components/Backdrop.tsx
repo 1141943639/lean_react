@@ -1,6 +1,8 @@
 import React from "react";
 import clsx from "clsx";
 import { ModalUnstyledProps } from "@mui/base";
+import TransitionWrap from "Transition/TransitionWrap";
+import useFade from "Transition/Fade";
 
 interface Props {
   open?: boolean;
@@ -9,7 +11,8 @@ interface Props {
 }
 
 const BackDrop = (props: Props, ref: React.Ref<HTMLDivElement>) => {
-  const { open, className, ownerState, ...other } = props;
+  const { open = false, className, ownerState, ...other } = props;
+  const { childrenStyle } = useFade();
 
   return (
     <div

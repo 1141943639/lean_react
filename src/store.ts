@@ -8,6 +8,7 @@ import middleware from "middleware";
 import auth from "slice/auth";
 import language from "slice/language";
 import todoList from "slice/todoList";
+import loading from "slice/loading";
 import userSlice from "api/user";
 import todosSlice from "api/todos";
 
@@ -15,6 +16,7 @@ const reducer = {
   auth,
   language,
   todoList,
+  loading,
   [userSlice.reducerPath]: userSlice.reducer,
   [todosSlice.reducerPath]: todosSlice.reducer,
 };

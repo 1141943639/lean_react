@@ -1,3 +1,4 @@
+import { GlobalLoading } from "components/Loading";
 import React from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -6,7 +7,9 @@ import store, { persist } from "store";
 const Layout = (props: { children: React.ReactNode }) => {
   return (
     <Provider store={store}>
-      <PersistGate persistor={persist}>{props.children}</PersistGate>
+      <PersistGate persistor={persist}>
+        <GlobalLoading>{props.children}</GlobalLoading>
+      </PersistGate>
     </Provider>
   );
 };

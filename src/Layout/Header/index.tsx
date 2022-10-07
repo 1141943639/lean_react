@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { selectLanguage, setLanguage } from "slice/language";
 import { useAppDispatch, useAppSelector } from "hooks";
@@ -6,17 +6,23 @@ import { useAppDispatch, useAppSelector } from "hooks";
 import SelectUnstyled from "@mui/base/SelectUnstyled";
 import OptionUnstyled from "@mui/base/OptionUnstyled";
 import Drawer from "components/Drawer";
+import SideBar, { TabInterface } from "Layout/SideBar/index";
+import MoreSvg from "icons/svg/MoreSvg";
 
 interface Option {
   name: string;
   value: string;
 }
 
-const Header: React.FC = () => {
+interface Props {
+  onOpenDrawer: () => void;
+}
+
+const Header: React.FC<Props> = (props) => {
   const { i18n } = useTranslation();
   const { language } = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const { onOpenDrawer } = props;
 
   React.useEffect(() => {
     i18n.changeLanguage(language);
@@ -37,17 +43,12 @@ const Header: React.FC = () => {
     return item.value === language ? "bg-blue-100" : "";
   };
 
-  const handleCloseDrawer = () => {
-    setOpenDrawer(false);
-  };
-
   return (
     <div className="flex justify-between">
       <div>
-        <button onClick={() => setOpenDrawer(true)}>抽屉</button>
-        <Drawer onClose={handleCloseDrawer} open={openDrawer}>
-          <div>125125</div>
-        </Drawer>
+        <button className="md:hidden block" onClick={() => onOpenDrawer?.()}>
+          <MoreSvg className="w-4 h-4" />
+        </button>
       </div>
 
       <div>
