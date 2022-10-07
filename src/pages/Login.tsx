@@ -43,7 +43,7 @@ export default function Login() {
       const user = userDataArr[0];
 
       dispatch(setUser(user));
-      history.push("/test/home");
+      history.push("/index/home");
     } catch (err) {
       console.error(
         "%c [  ]-44",

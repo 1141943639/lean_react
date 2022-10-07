@@ -21,21 +21,21 @@ function App() {
 
   const tabList = [
     {
-      path: "/test",
+      path: "/index",
       children: <Login />,
       name: <div title={t("tabBar.login")}>{t("tabBar.login")}</div>,
       exact: true,
       svg: <LoginSvg className="w-4 h-4" />,
     },
     {
-      path: "/test/home",
+      path: "/index/home",
       children: <Profile />,
       name: <div title={t("tabBar.home")}>{t("tabBar.home")}</div>,
       type: "private",
       exact: true,
     },
     {
-      path: "/test/todoList",
+      path: "/index/todoList",
       children: <TodoList />,
       name: <div title={t("tabBar.todoList")}>{t("tabBar.todoList")}</div>,
       type: "private",
@@ -65,7 +65,7 @@ function App() {
   return (
     <div className="bg-gray-100 md:p-5 h-screen">
       <Switch>
-        <BaseRoute path="/test">
+        <BaseRoute path="/index">
           <div className="flex h-full">
             <div className="md:block hidden mr-5 h-full w-3/12 rounded-md overflow-hidden">
               <SideBar tabList={tabList} />
@@ -92,7 +92,7 @@ function App() {
           </div>
         </BaseRoute>
         <BaseRoute path="/" exact>
-          <Redirect to="/test" />
+          <Redirect to="/index" />
         </BaseRoute>
         <BaseRoute path="*" exact>
           <NoMatch />

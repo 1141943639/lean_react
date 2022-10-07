@@ -20,7 +20,7 @@ const Profile: React.FC = () => {
       <Trans
         i18nKey="home.todoListLink"
         components={{
-          Link: <Link to="/test/todoList" />,
+          Link: <Link to="/index/todoList" />,
         }}
       />
     </div>
