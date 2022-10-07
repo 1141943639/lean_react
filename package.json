@@ -2,6 +2,7 @@
   "name": "hook-ts",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "@mui/base": "^5.0.0-alpha.99",
     "@reduxjs/toolkit": "^1.8.5",
