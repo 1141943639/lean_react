@@ -37,7 +37,7 @@ export default function Login() {
       };
 
       if (isEmpty(userDataArr)) {
-        return console.log("找不到用户");
+        return console.error("找不到用户");
       }
 
       const user = userDataArr[0];
@@ -45,7 +45,7 @@ export default function Login() {
       dispatch(setUser(user));
       history.push("/test/home");
     } catch (err) {
-      console.log(
+      console.error(
         "%c [  ]-44",
         "font-size:13px; background:pink; color:#bf2c9f;",
         "登录失败"
