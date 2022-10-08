@@ -17,7 +17,7 @@
 * 消息提示
 * loading功能
 
-[知识点总结]([https://](https://github.com/1141943639/lean_react/blob/master/KNOWLEDGE-POINT.md))
+[知识点总结](https://github.com/1141943639/lean_react/blob/master/KNOWLEDGE-POINT.md)
 
 # 样式
 

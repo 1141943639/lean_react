@@ -14,6 +14,7 @@ import NoMatch from "pages/NoMatch";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <Router basename={process.env.PUBLIC_URL}>

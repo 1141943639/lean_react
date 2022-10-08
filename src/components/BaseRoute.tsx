@@ -1,19 +1,53 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Route, RouteProps } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 
-interface IProps extends RouteProps {
+import get from "lodash/get";
+import { isFunction } from "lodash";
+
+interface BaseRoute extends RouteProps {
   type?: string;
 }
 
-const BaseRoute: React.FC<IProps> = (props) => {
-  const { children, ...arg } = props;
+interface NestedBaseRoute extends BaseRoute {
+  routes?: Array<Route>;
+}
 
-  if (props.type === "private") {
-    return <PrivateRoute {...arg}>{children}</PrivateRoute>;
-  } else {
-    return <Route {...arg}>{children}</Route>;
-  }
+type RoutesConfig = Array<NestedBaseRoute | BaseRoute>;
+
+interface Props {
+  routesConfig: RoutesConfig;
+}
+
+const BaseRoute: React.FC<Props> = (props) => {
+  const { routesConfig } = props;
+
+  return (
+    <>
+      {routesConfig.map((routes) => {
+        const { type, children, ...other } = routes;
+
+        const Component = (() => {
+          switch (type) {
+            case "private":
+              return PrivateRoute;
+            default:
+              return Route;
+          }
+        })();
+
+        if (get(routes, "routes")) {
+          return (
+            <Component {...other}>
+              {isFunction(children) ? children(BaseRoute(routes)) : children}
+            </Component>
+          );
+        } else {
+          return <Component {...other}>{children}</Component>;
+        }
+      })}
+    </>
+  );
 };
 
 export default BaseRoute;
