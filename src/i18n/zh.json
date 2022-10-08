@@ -37,5 +37,8 @@
     "editBtn": "编辑",
     "delBtn": "删除"
   },
-  "noMatch": "找不到页面"
+  "noMatch": "找不到页面",
+  "header": {
+    "text": "语言"
+  }
 }

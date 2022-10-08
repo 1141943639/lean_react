@@ -1,46 +1,70 @@
-# Getting Started with Create React App
+# React学习项目
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+根据ReactJs文档的练习任务完成的练手项目, 使用react+ts进行开发
 
-## Available Scripts
+该项目使用react脚手架(create-react-app)运行
 
-In the project directory, you can run:
+已完成的功能如下
 
-### `npm start`
+* [简单的代办事项功能](#todoList)
+* [登录页面以及相关逻辑](#login)
+* [支持多语言](#multiLanguage)
+* [使用redux](#useRedux)
+* [使用tailwind优化样式](#useTailwind)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+未完成的功能
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* 消息提示
+* loading功能
 
-### `npm test`
+# 样式
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+样式: tailwindcss<br/>
+组件: @mui/base<br/>
+过渡: react-transition-group
 
-### `npm run build`
+# 接口
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+使用的接口来自 https://jsonplaceholder.typicode.com/
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+注意: 该接口不支持修改数据, 所以代办事项页面(todoList)上的数据修改都是假的, 刷新后会回复原样
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# 开发环境运行项目
 
-### `npm run eject`
+```
+// 安装依赖
+npm i
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+// 运行项目
+npm start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+访问http://localhost:3000进入登录页
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+用户名: 从 https://jsonplaceholder.typicode.com/users 接口中随便取一个数据的username
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+密码: 随便输入 但是需要满足规则(最小10位, 必须包括⼤⼩写和数字和特殊符号!@#$)
 
-## Learn More
+例如: 
+用户名: Bret
+密码: 124214Dsdg235325@
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<h1 id="todoList">简单的代办事项功能</h1>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+提供简单的增删改查功能, 会根据用户不同用户获取不一样的数据, 编辑时使用@mui/base的TextareaAutosize组件, 支持多行文本的编辑
+
+<h1 id="login">登录页面以及相关逻辑</h1>
+
+登录页面使用formik库制作表单, 表单校验使用的是yup
+如果没有登录就无法访问其他页面
+
+<h1 id="multiLanguage">支持多语言</h1>
+
+使用的是i18n实现多语言功能, 点击右上角的语言选项可以切换不同语言, 目前支持英文和简体和繁体, 假如没有匹配到语⾔默认回滚到英⽂
+
+<h1 id="useRedux">使用redux</h1>
+
+
+
+<h1 id="useTailwind">使用tailwind优化样式</h1>
+

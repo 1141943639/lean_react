@@ -1,0 +1,43 @@
+{
+  "language": "中文",
+  "tabBar": {
+    "login": "登錄頁",
+    "home": "首頁",
+    "todoList": "待辦事項列表"
+  },
+  "home": {
+    "todoListLink": "點擊<Link>todoList</Link>打開",
+    "username": "歡迎您 {{username}}!"
+  },
+  "login": {
+    "title": "登錄頁",
+    "form": {
+      "username": {
+        "label": "用戶名",
+        "valid": {
+          "required": "登錄名必填",
+          "incorrectFormat": "登錄名格式不正確"
+        },
+        "placeholder": "最小10位, 不能包括特殊符號"
+      },
+      "pwd": {
+        "label": "密碼",
+        "valid": {
+          "notLongEnough": "密碼⻓度不夠",
+          "notSafeEnough": "密碼不夠安全"
+        },
+        "placeholder": "最小10位, 必須包括⼤⼩寫和數字和特殊符號!@#$"
+      }
+    },
+    "formButton":"登錄"
+  },
+  "todoList": {
+    "addBtn": "添加",
+    "editBtn": "編輯",
+    "delBtn": "刪除"
+  },
+  "noMatch": "找不到頁面",
+  "header": {
+    "text": "語言"
+  }
+}

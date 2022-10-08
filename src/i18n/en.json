@@ -37,5 +37,8 @@
     "editBtn": "edit",
     "delBtn": "delete"
   },
-  "noMatch": "Not Found Page"
+  "noMatch": "Not Found Page",
+  "header": {
+    "text": "Language"
+  }
 }

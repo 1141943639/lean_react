@@ -108,14 +108,14 @@ export default function Login() {
       >
         {(form) => {
           return (
-            <Form>
+            <Form className="md:w-1/3">
               {formOption.map(({ fieldProps, name, label }) => {
                 const error = form.errors[name as FormField];
                 const touched = form.touched[name as FormField];
 
                 return (
                   <div className="flex flex-col mb-5 relative" key={name}>
-                    <label className="mb-1 block w-20 font-bold" htmlFor={name}>
+                    <label className="mb-1 block font-bold" htmlFor={name}>
                       {label}
                     </label>
                     <Field

@@ -3,6 +3,7 @@ import { initReactI18next } from "react-i18next";
 
 import translation_en from "./en.json";
 import translation_zh from "./zh.json";
+import translation_tzh from "./tzh.json";
 
 const resources = {
   en: {
@@ -10,6 +11,9 @@ const resources = {
   },
   zh: {
     translation: translation_zh,
+  },
+  tzh: {
+    translation: translation_tzh,
   },
 };
 
