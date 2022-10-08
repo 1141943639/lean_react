@@ -65,7 +65,7 @@ function App() {
   return (
     <div className="bg-gray-100 md:p-5 h-screen">
       <Switch>
-        <BaseRoute path="/index">
+        {/* <BaseRoute path="/index">
           <div className="flex h-full">
             <div className="md:block hidden mr-5 h-full w-3/12 rounded-md overflow-hidden">
               <SideBar tabList={tabList} />
@@ -96,7 +96,7 @@ function App() {
         </BaseRoute>
         <BaseRoute path="*" exact>
           <NoMatch />
-        </BaseRoute>
+        </BaseRoute> */}
       </Switch>
     </div>
   );

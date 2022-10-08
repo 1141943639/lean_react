@@ -39,7 +39,7 @@ const BaseRoute: React.FC<Props> = (props) => {
         if (get(routes, "routes")) {
           return (
             <Component {...other}>
-              {isFunction(children) ? children(BaseRoute(routes)) : children}
+              {/* {isFunction(children) ? children(BaseRoute(routes)) : children} */}
             </Component>
           );
         } else {
