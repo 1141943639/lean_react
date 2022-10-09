@@ -43,8 +43,7 @@ export default function Home() {
   const handleAdd = useCallback(
     async (data: ItemInterFace) => {
       await add(data);
-      list.unshift(data);
-      setList(list);
+      setList([data, ...list]);
     },
     [list]
   );
