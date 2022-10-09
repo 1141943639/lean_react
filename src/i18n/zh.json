@@ -8,7 +8,7 @@
   },
   "home": {
     "todoListLink": "点击<Link>todoList</Link>打开",
-    "username": "欢迎您 {{username}}!"
+    "username": "<strong>欢迎您</strong> {{username}}!"
   },
   "login": {
     "title": "登录页",
@@ -37,5 +37,8 @@
     "editBtn": "编辑",
     "delBtn": "删除"
   },
-  "noMatch": "找不到页面"
+  "noMatch": "找不到页面",
+  "header": {
+    "text": "语言"
+  }
 }

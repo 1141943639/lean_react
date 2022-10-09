@@ -19,7 +19,7 @@ interface Props {
 }
 
 const Header: React.FC<Props> = (props) => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const { language } = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const { onOpenDrawer } = props;
@@ -35,7 +35,11 @@ const Header: React.FC<Props> = (props) => {
     },
     {
       value: "zh",
-      name: "中文",
+      name: "中文(简体)",
+    },
+    {
+      value: "tzh",
+      name: "中文(繁体)",
     },
   ];
 
@@ -52,7 +56,7 @@ const Header: React.FC<Props> = (props) => {
       </div>
 
       <div>
-        <span>语言: </span>
+        <span>{t("header.text")}: </span>
         <SelectUnstyled
           className="focus-visible:outline-none px-2 border rounded-md"
           value={language}
@@ -62,6 +66,9 @@ const Header: React.FC<Props> = (props) => {
           componentsProps={{
             listbox: {
               className: "p-2 bg-gray-50",
+            },
+            popper: {
+              className: "z-10",
             },
           }}
         >

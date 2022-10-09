@@ -43,7 +43,7 @@ export default function Login() {
       const user = userDataArr[0];
 
       dispatch(setUser(user));
-      history.push("/test/home");
+      history.push("/index/home");
     } catch (err) {
       console.error(
         "%c [  ]-44",
@@ -83,7 +83,7 @@ export default function Login() {
         validationSchema={Yup.object({
           username: Yup.string()
             .required(t("login.form.username.valid.required"))
-            // .min(10, t("login.form.username.valid.incorrectFormat"))
+            .min(10, t("login.form.username.valid.incorrectFormat"))
             .test(
               "format",
               t("login.form.username.valid.incorrectFormat"),
@@ -108,14 +108,14 @@ export default function Login() {
       >
         {(form) => {
           return (
-            <Form>
+            <Form className="md:w-1/3">
               {formOption.map(({ fieldProps, name, label }) => {
                 const error = form.errors[name as FormField];
                 const touched = form.touched[name as FormField];
 
                 return (
                   <div className="flex flex-col mb-5 relative" key={name}>
-                    <label className="mb-1 block w-20 font-bold" htmlFor={name}>
+                    <label className="mb-1 block font-bold" htmlFor={name}>
                       {label}
                     </label>
                     <Field

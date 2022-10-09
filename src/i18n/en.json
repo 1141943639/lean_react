@@ -8,7 +8,7 @@
   },
   "home": {
     "todoListLink": "click to <Link to=\"/todoList\">TodoList</Link>",
-    "username": "Welcome {{username}}!"
+    "username": "<strong>Welcome</strong> {{username}}!"
   },
   "login": {
     "title": "Login Page",
@@ -37,5 +37,8 @@
     "editBtn": "edit",
     "delBtn": "delete"
   },
-  "noMatch": "Not Found Page"
+  "noMatch": "Not Found Page",
+  "header": {
+    "text": "Language"
+  }
 }

@@ -37,10 +37,10 @@ const AddInput: React.FC<IProps> = (props) => {
   };
 
   return (
-    <div className="flex mb-2 flex-shrink-0 w-full justify-center h-10">
-      <div className="border-2 border-r-0 rounded-r-none rounded-md flex justify-center items-center">
+    <div className="flex mb-2 flex-shrink-0 justify-center h-10 px-3 w-full">
+      <div className="border-2 border-r-0 w-full rounded-r-none rounded-md flex justify-center items-center">
         <input
-          className="focus-visible:outline-none px-2"
+          className="w-full focus-visible:outline-none px-2"
           onKeyDown={handleKeyDown}
           value={addInput}
           onInput={handleInput}

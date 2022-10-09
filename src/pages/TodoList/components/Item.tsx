@@ -60,7 +60,11 @@ const Item: React.FC<IProps> = (props) => {
 
   useEffect(() => {
     if (needFocus) {
+      const valueLen = data.title?.length || 0;
+
       inputRef?.current?.focus?.();
+      inputRef?.current?.setSelectionRange(valueLen, valueLen);
+
       setNeedFocus(false);
     }
   }, [needFocus]);
