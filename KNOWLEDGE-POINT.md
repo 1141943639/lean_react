@@ -55,8 +55,6 @@
 
 * 日常使用
 
-
-
   > src/i18n/config.js
 
   ```
@@ -189,3 +187,415 @@
 
   return ChangeLanguage
   ```
+
+* 代替品 
+
+  [react-intl-universal](https://github.com/alibaba/react-intl-universal)
+
+* 优点
+
+  基于i18next不仅限于react，学一次就可以用在其它地方
+
+  适合服务端的渲染  
+
+  支持react和react-native
+
+* 缺点: 暂时没找到
+
+### 3. 表单([formik](https://formik.org/docs/overview) + [yup](https://github.com/jquense/yup))
+
+* 安装
+  
+  formik
+
+  `$ npm install formik --save`
+
+  yup
+
+  `$ npm install yup --save`
+
+* 日常使用
+
+  ```
+  import React, { useRef } from "react";
+
+  import * as Yup from "yup";
+  import { Formik, Field, Form, ErrorMessage } from "formik";
+  import { useHistory } from "react-router-dom";
+
+  export default function Login() {
+    const history = useHistory();
+
+    const handleSignin = async (data: SigninData) => {
+      try {
+        const { data: userDataArr } = await new Promise((resolve) =>
+           setTimeout(() => resolve([124]), 1000)
+        )
+
+        if (!userDataArr.length) {
+          return console.error("找不到用户");
+        }
+
+        const user = userDataArr[0];
+
+        history.push("/index/home");
+      } catch (err) {
+        console.error(
+          "%c [  ]-44",
+          "font-size:13px; background:pink; color:#bf2c9f;",
+          "登录失败"
+        );
+        throw err;
+      }
+    };
+
+    const formOption = [
+      {
+        name: "username",
+        label: t("login.form.username.label"),
+        fieldProps: {
+          type: "text",
+          placeholder: t("login.form.username.placeholder"),
+        },
+        ErrorRef: useRef(null),
+      },
+      {
+        name: "pwd",
+        label: t("login.form.pwd.label"),
+        fieldProps: {
+          type: "text",
+          placeholder: t("login.form.pwd.placeholder"),
+        },
+        ErrorRef: useRef(null),
+      },
+    ];
+
+    return (
+      <div className="w-full h-full flex flex-col justify-center items-center">
+        <div className="text-3xl font-bold mb-6">登录页</div>
+        <Formik
+          initialValues={{ username: "", pwd: "" }}
+          validationSchema={Yup.object({
+            username: Yup.string()
+              .required(t("login.form.username.valid.required")) // 必填
+              .min(10, '最少壕需要10位') // 设置最小长度
+              .test( // 自定义校验
+                "format", // 名称
+                '校验失败', // 校验失败的文本
+                (value) => { // 校验方法
+                  if (/[@!#$~%^}&*()+\-={}[\]:";'<>,.?/|\\]+/g.test(value || ""))
+                    return false;
+                  return true;
+                }
+              ),
+            pwd: Yup.string()
+              .required(t("login.form.pwd.valid.notLongEnough"))
+              .min(10, t("login.form.pwd.valid.notLongEnough"))
+              .matches(/[a-z]+/g, '校验失败') // 正则匹配
+              .matches(/[A-Z]+/g, '校验失败')
+              .matches(/[0-9]+/g, '校验失败')
+              .matches(/[!@#$]+/g, '校验失败'),
+          })}
+          onSubmit={(values, { setSubmitting }) => { // 如果是同步方法, 需要手动设置提交状态, 如果是异步则不需要
+            handleSignin(values);
+            setSubmitting(false);
+          }}
+        >
+          {(form) => {
+            return (
+              <Form className="md:w-1/3">
+                {formOption.map(({ fieldProps, name, label }) => {
+                  const error = form.errors[name as FormField];
+                  const touched = form.touched[name as FormField];
+
+                  return (
+                    <div className="flex flex-col mb-5 relative" key={name}>
+                      <label className="mb-1 block font-bold" htmlFor={name}>
+                        {label}
+                      </label>
+                      <Field
+                        className={[
+                          "relative focus-visible:outline-none rounded-md border-2 px-2 py-1",
+                          error && touched ? "border-red-500" : "",
+                        ].join(" ")}
+                        name={name}
+                        {...fieldProps}
+                      />
+                      <div className="text-red-500">
+                        <ErrorMessage name={name} />
+                      </div>
+                    </div>
+                  );
+                })}
+
+                <div className="flex justify-center w-full mt-8">
+                  <button
+                    className="px-5 py-1 rounded-md bg-blue-500 text-white"
+                    type="submit"
+                  >
+                    登录
+                  </button>
+                </div>
+              </Form>
+            );
+          }}
+        </Formik>
+      </div>
+    );
+  }
+  ```
+* 代替品: 
+
+  * [redux-form](https://redux-form.com/8.2.2/docs/gettingstarted.md/)
+  * [react-jsonschema-form¶](https://react-jsonschema-form.readthedocs.io/en/latest/)
+  * [unform](https://unform-rocketseat.vercel.app/quick-start/)
+
+* 优点: 
+
+  提供针对表单的状态管理, 同时可以更加方便的进行表单校验
+
+  yup的使用可以让表单校验变得更加简洁
+
+### 4. Redux
+
+* 安装 
+
+  `$ npm install @reduxjs/toolkit`
+  `$ npm install react-redux`
+
+* 日常使用
+
+  1.创建切片
+
+  > src/slice.js
+
+  ```
+  import { createSlice } from '@reduxjs/toolkit'
+
+  export const counterSlice = createSlice({
+    name: 'counter',
+    initialState: {
+      value: 0
+    },
+    reducers: {
+      increment: state => {
+        state.value += 1
+      },
+      decrement: state => {
+        state.value -= 1
+      },
+      incrementByAmount: (state, action) => {
+        state.value += action.payload
+      }
+    }
+  })
+
+  export const { increment, decrement, incrementByAmount } = counterSlice.actions
+
+  export default counterSlice.reducer
+  export const selectCounter = state => state.counter.value
+  ```
+  
+  添加到redux
+
+  > src/store.js
+
+  ```
+  import { combineReducers } from "redux";
+  import { configureStore } from "@reduxjs/toolkit";
+
+  import counter from './slice.js
+
+  const reducer = {
+    counter
+  };
+
+  const store = configureStore({
+    reducer: reducer,
+  });
+
+  export default store;
+  ```
+
+  注册到react
+
+  > src/index.js
+
+  ```
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import App from './App'
+  import store from './app/store'
+  import { Provider } from 'react-redux'
+
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById('root')
+  )
+  ```
+
+  在react上使用
+
+  > src/App.js
+
+  ```
+  import React from 'react'
+  import { useSelector, useDispatch } from 'react-redux'
+  import { decrement, increment, selectCounter } from './counterSlice'
+
+  export function Counter() {
+    const count = useSelector(selectCounter)
+    const dispatch = useDispatch()
+
+    return (
+      <div>
+        <div>
+          <button
+            aria-label="Increment value"
+            onClick={() => dispatch(increment())}
+          >
+            Increment
+          </button>
+          <span>{count}</span>
+          <button
+            aria-label="Decrement value"
+            onClick={() => dispatch(decrement())}
+          >
+            Decrement
+          </button>
+        </div>
+      </div>
+    )
+  }
+  ```
+
+  使用持久化储存
+
+  安装 `$ npm install redux-persist`
+
+  修改src/store.js
+
+  ```
+  import { combineReducers } from "redux";
+  import { configureStore } from "@reduxjs/toolkit";
+  import { persistStore, persistReducer } from "redux-persist";
+  import storage from "redux-persist/lib/storage";
+
+  import auth from "slice/auth";
+  import language from "slice/language";
+  import todoList from "slice/todoList";
+  import loading from "slice/loading";
+
+  const reducer = {
+    auth,
+    language,
+    todoList,
+    loading,
+  };
+
+  const persistConfig = {
+    key: "root",
+    storage,
+  };
+
+  const persistedReducer = persistReducer(
+    persistConfig,
+    combineReducers(reducer)
+  );
+
+  const store = configureStore({
+    reducer: persistedReducer,
+  });
+
+  export default store;
+  export const persist = persistStore(store);
+  ```
+
+  使用 RTK query
+
+  > api/user.js
+
+  ```
+  import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
+  export const userSlice = createApi({
+    reducerPath: "user",
+    // 默认配置
+    baseQuery: fetchBaseQuery({
+      baseUrl: "https://jsonplaceholder.typicode.com",
+    }),
+    // 所有API
+    endpoints: (builder) => ({
+      signin: builder.mutation({
+        query: (username) => ({
+          url: `/users?username=${username}`,
+        }),
+      }),
+      getUser: builder.query({
+        query: (username) => ({
+          url: `/users?username=${username}`,
+        }),
+      })
+    }),
+  });
+
+  // Export the auto-generated hook for the `getPosts` query endpoint
+  export const { useSigninMutation, useGetUserQuery } = userSlice;
+  export default userSlice;
+  ```
+
+  > src.store.js
+
+  ```
+  import { combineReducers } from "redux";
+  import { configureStore } from "@reduxjs/toolkit";
+  import { persistStore, persistReducer } from "redux-persist";
+  import storage from "redux-persist/lib/storage";
+
+  import userSlice from "api/user";
+
+  const reducer = {
+    [userSlice.reducerPath]: userSlice.reducer,
+  };
+
+  const store = configureStore({
+    reducer: reducer,
+     middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(userSlice.middleware)
+  });
+
+  export default store;
+  ```
+
+  > src/Login.js
+
+  ```
+  import { useState } from 'react'
+  import { useSigninMutation, useGetUserQuery } from './api/user.js'
+
+  function Login() {
+    const [username, setUsername] = useState('')
+    const {data, error, isLoading} = useGetUserQuery('test') // builder.query创建的api在use的时候会立刻调用
+    const [signin, {isLoading}] = useSigninMutation() // builder.mutation创建的api在use之后不会立刻调用, 会返回一个数组, 第一个就是调用结口的方法
+
+    return (
+      <div>
+        <input value={username} onInput={e => setUsername(e.currentTarget.value)}></input>
+        <button onClick={() => signin(username)}>登录</button>
+      </div>
+
+    )
+  }
+
+  return Login
+  ```
+
+* 代替品: 暂时没找到
+
+
+
+
+
+

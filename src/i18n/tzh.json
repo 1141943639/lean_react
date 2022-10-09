@@ -7,7 +7,7 @@
   },
   "home": {
     "todoListLink": "點擊<Link>todoList</Link>打開",
-    "username": "歡迎您 {{username}}!"
+    "username": "<strong>歡迎您</strong> {{username}}!"
   },
   "login": {
     "title": "登錄頁",

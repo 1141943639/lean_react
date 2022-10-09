@@ -8,7 +8,7 @@
   },
   "home": {
     "todoListLink": "点击<Link>todoList</Link>打开",
-    "username": "欢迎您 {{username}}!"
+    "username": "<strong>欢迎您</strong> {{username}}!"
   },
   "login": {
     "title": "登录页",

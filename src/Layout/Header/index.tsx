@@ -67,6 +67,9 @@ const Header: React.FC<Props> = (props) => {
             listbox: {
               className: "p-2 bg-gray-50",
             },
+            popper: {
+              className: "z-10",
+            },
           }}
         >
           {optionArr.map((item) => (

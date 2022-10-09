@@ -83,7 +83,7 @@ export default function Login() {
         validationSchema={Yup.object({
           username: Yup.string()
             .required(t("login.form.username.valid.required"))
-            // .min(10, t("login.form.username.valid.incorrectFormat"))
+            .min(10, t("login.form.username.valid.incorrectFormat"))
             .test(
               "format",
               t("login.form.username.valid.incorrectFormat"),
