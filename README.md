@@ -10,18 +10,16 @@
 * [登录页面以及相关逻辑](#login)
 * [支持多语言](#multiLanguage)
 * [使用redux](#useRedux)
-* 使用tailwind优化样式并实现响应式页面
+* [使用tailwind优化样式](#useTailwind)
 
 未完成的功能
 
 * 消息提示
 * loading功能
 
-[知识点总结](https://github.com/1141943639/lean_react/blob/master/KNOWLEDGE-POINT.md)
-
 # 样式
 
-样式: tailwindcss, clsx<br/>
+样式: tailwindcss<br/>
 组件: @mui/base<br/>
 过渡: react-transition-group
 
@@ -66,6 +64,7 @@ npm start
 
 <h1 id="useRedux">使用redux</h1>
 
-使用redux储存用户数据, 和语言数据, 并使用redux-persist实现数据持久化管理
 
-使用RTK query来管理接口请求
+
+<h1 id="useTailwind">使用tailwind优化样式</h1>
+
