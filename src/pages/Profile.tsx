@@ -8,21 +8,24 @@ const Profile: React.FC = () => {
   const { user } = useAppSelector(selectUser);
 
   return (
-    <div>
-      <h3>
+    <div className="p-3 relative h-full w-full">
+      <h3 className="text-2xl">
         <Trans
           i18nKey="home.username"
           values={{
             username: user.name,
           }}
+          components={{}}
         />
       </h3>
-      <Trans
-        i18nKey="home.todoListLink"
-        components={{
-          Link: <Link to="/index/todoList" />,
-        }}
-      />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Trans
+          i18nKey="home.todoListLink"
+          components={{
+            Link: <Link to="/index/todoList" />,
+          }}
+        />
+      </div>
     </div>
   );
 };

@@ -8,7 +8,7 @@
   },
   "home": {
     "todoListLink": "click to <Link to=\"/todoList\">TodoList</Link>",
-    "username": "Welcome {{username}}!"
+    "username": "<strong>Welcome</strong> {{username}}!"
   },
   "login": {
     "title": "Login Page",
