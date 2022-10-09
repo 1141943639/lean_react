@@ -592,7 +592,29 @@
   return Login
   ```
 
-* 代替品: 暂时没找到
+* 代替品
+
+  [Undux](https://github.com/bcherny/undux)
+  [Rxjs](https://github.com/ReactiveX/rxjs)
+  [Flux](https://github.com/facebook/flux)
+  [Mobx](https://github.com/mobxjs/mobx)
+
+* 优点 
+
+  代码格式统一, 易于维护
+
+  有插件可以方便调试, 支持状态持久化
+
+  社区生态丰富, 有很多扩展插件
+
+* 缺点
+
+  dispatch是同步, 无法确认action是否执行成功
+
+  编写流程繁琐, 有大量的模板代码
+  
+  
+
 
 
 
