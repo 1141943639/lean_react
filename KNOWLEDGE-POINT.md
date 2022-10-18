@@ -70,9 +70,11 @@
     en: {
       translation: translation_en,
     },
+    // 简体
     zh: {
       translation: translation_zh,
     },
+    // 繁体
     tzh: {
       translation: translation_tzh,
     },
@@ -125,7 +127,7 @@
 
   ```
   {
-    instance: "账户信息: <UserName>{{username}}</UserName> <Pwd>{{pwd}}</Pwd>"
+    instance: "账户信息: <1>{{username}}</1> <2>{{pwd}}</2>"
   }
   ```
 
@@ -146,10 +148,7 @@
           username,
           pwd: '12345678'
         }}
-        components={{
-          UserName: <Link to="/username" />,
-          Pwd: <Link to="/pwd">
-        }}
+        components={[<Link to="/username" />, <Link to="/pwd">]}
       ></Trans>
     )
   }
@@ -190,7 +189,7 @@
 
 * 代替品 
 
-  [react-intl-universal](https://github.com/alibaba/react-intl-universal)
+  [formatjs](https://github.com/formatjs/formatjs)
 
 * 优点
 
@@ -200,7 +199,9 @@
 
   支持react和react-native
 
-* 缺点: 暂时没找到
+* 缺点: 
+
+  如果支持的语言太多, 改起来很麻烦
 
 ### 3. 表单([formik](https://formik.org/docs/overview) + [yup](https://github.com/jquense/yup))
 
@@ -215,134 +216,84 @@
   `$ npm install yup --save`
 
 * 日常使用
+  
+  表单配置Yup校验
 
   ```
-  import React, { useRef } from "react";
-
   import * as Yup from "yup";
-  import { Formik, Field, Form, ErrorMessage } from "formik";
-  import { useHistory } from "react-router-dom";
+  import { Formik } from "formik";
 
-  export default function Login() {
-    const history = useHistory();
+  <Formik
+    // 默认值
+    initialValues={{ username: "", pwd: "" }}
+    // 校验
+    validationSchema={Yup.object({
+      username: Yup.string()
+        // 必填
+        .required('用户名必填')
+        // 最小值
+        .min(10, '最少输入10位')
+        // 自定义校验
+        .test(
+          // 名称
+          "format",
+          // 错误信息
+          '校验失败',
+          // 自定义校验方法
+          (value) => {
+            if (/[@!#$~%^}&*()+\-={}[\]:";'<>,.?/|\\]+/g.test(value || ""))
+              return false;
+            return true;
+          }
+        ),
+      pwd: Yup.string()
+        .required('密码必填')
+        .min(10, '最少输入10位')
+        // 正则匹配校验
+        .matches(/[a-z]+/g, '密码格式不正确')
+        .matches(/[A-Z]+/g, '密码格式不正确')
+        .matches(/[0-9]+/g, '密码格式不正确')
+        .matches(/[!@#$]+/g, '密码格式不正确'),
+    })}
+    // 提交方法
+    onSubmit={async (values) => {
+      handleSignin(values);
+    }}
+  >...</Formik>
+  ```
 
-    const handleSignin = async (data: SigninData) => {
-      try {
-        const { data: userDataArr } = await new Promise((resolve) =>
-           setTimeout(() => resolve([124]), 1000)
-        )
+  字段组件的使用
 
-        if (!userDataArr.length) {
-          return console.error("找不到用户");
-        }
+  ```
+  import { Formik, Field, Form, ErrorMessage } from "formik";  
+  
+  <Formik ...>
+    // 传入方法, 获取表单相关的数据
+    {(form) => {
+      return (
+        <Form>
+          <label>
+            用户名
+          </label>
+          <Field
+            type="text"
+            name="username"
+          />
+          <div>
+            <ErrorMessage name={name} />
+          </div>
 
-        const user = userDataArr[0];
-
-        history.push("/index/home");
-      } catch (err) {
-        console.error(
-          "%c [  ]-44",
-          "font-size:13px; background:pink; color:#bf2c9f;",
-          "登录失败"
-        );
-        throw err;
-      }
-    };
-
-    const formOption = [
-      {
-        name: "username",
-        label: t("login.form.username.label"),
-        fieldProps: {
-          type: "text",
-          placeholder: t("login.form.username.placeholder"),
-        },
-        ErrorRef: useRef(null),
-      },
-      {
-        name: "pwd",
-        label: t("login.form.pwd.label"),
-        fieldProps: {
-          type: "text",
-          placeholder: t("login.form.pwd.placeholder"),
-        },
-        ErrorRef: useRef(null),
-      },
-    ];
-
-    return (
-      <div className="w-full h-full flex flex-col justify-center items-center">
-        <div className="text-3xl font-bold mb-6">登录页</div>
-        <Formik
-          initialValues={{ username: "", pwd: "" }}
-          validationSchema={Yup.object({
-            username: Yup.string()
-              .required(t("login.form.username.valid.required")) // 必填
-              .min(10, '最少壕需要10位') // 设置最小长度
-              .test( // 自定义校验
-                "format", // 名称
-                '校验失败', // 校验失败的文本
-                (value) => { // 校验方法
-                  if (/[@!#$~%^}&*()+\-={}[\]:";'<>,.?/|\\]+/g.test(value || ""))
-                    return false;
-                  return true;
-                }
-              ),
-            pwd: Yup.string()
-              .required(t("login.form.pwd.valid.notLongEnough"))
-              .min(10, t("login.form.pwd.valid.notLongEnough"))
-              .matches(/[a-z]+/g, '校验失败') // 正则匹配
-              .matches(/[A-Z]+/g, '校验失败')
-              .matches(/[0-9]+/g, '校验失败')
-              .matches(/[!@#$]+/g, '校验失败'),
-          })}
-          onSubmit={(values, { setSubmitting }) => { // 如果是同步方法, 需要手动设置提交状态, 如果是异步则不需要
-            handleSignin(values);
-            setSubmitting(false);
-          }}
-        >
-          {(form) => {
-            return (
-              <Form className="md:w-1/3">
-                {formOption.map(({ fieldProps, name, label }) => {
-                  const error = form.errors[name as FormField];
-                  const touched = form.touched[name as FormField];
-
-                  return (
-                    <div className="flex flex-col mb-5 relative" key={name}>
-                      <label className="mb-1 block font-bold" htmlFor={name}>
-                        {label}
-                      </label>
-                      <Field
-                        className={[
-                          "relative focus-visible:outline-none rounded-md border-2 px-2 py-1",
-                          error && touched ? "border-red-500" : "",
-                        ].join(" ")}
-                        name={name}
-                        {...fieldProps}
-                      />
-                      <div className="text-red-500">
-                        <ErrorMessage name={name} />
-                      </div>
-                    </div>
-                  );
-                })}
-
-                <div className="flex justify-center w-full mt-8">
-                  <button
-                    className="px-5 py-1 rounded-md bg-blue-500 text-white"
-                    type="submit"
-                  >
-                    登录
-                  </button>
-                </div>
-              </Form>
-            );
-          }}
-        </Formik>
-      </div>
-    );
-  }
+          <div>
+            <button
+              type="submit"
+            >
+              登录
+            </button>
+          </div>
+        </Form>
+      );
+    }}
+  </Formik>
   ```
 * 代替品: 
 
@@ -609,8 +560,8 @@
 
 * 缺点
 
-  dispatch是同步, 无法确认action是否执行成功
-
+  dispatch只能是同步
+ 
   编写流程繁琐, 有大量的模板代码
   
   
