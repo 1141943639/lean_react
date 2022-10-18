@@ -1,11 +1,11 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const userSlice = createApi({
   // The cache reducer expects to be added at `state.api` (already default - this is optional)
-  reducerPath: "user",
+  reducerPath: 'user',
   // All of our requests will have URLs starting with '/fakeApi'
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://jsonplaceholder.typicode.com",
+    baseUrl: 'https://jsonplaceholder.typicode.com',
   }),
   // The "endpoints" represent operations and requests for this server
   endpoints: (builder) => ({

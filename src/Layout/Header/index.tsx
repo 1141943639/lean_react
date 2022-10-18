@@ -1,13 +1,13 @@
-import React, { useCallback, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { selectLanguage, setLanguage } from "slice/language";
-import { useAppDispatch, useAppSelector } from "hooks";
+import React, { useCallback, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import SelectUnstyled from '@mui/base/SelectUnstyled';
+import OptionUnstyled from '@mui/base/OptionUnstyled';
+import { selectLanguage, setLanguage } from 'store/slice/language';
+import { useAppDispatch, useAppSelector } from 'hooks/useAppState';
 
-import SelectUnstyled from "@mui/base/SelectUnstyled";
-import OptionUnstyled from "@mui/base/OptionUnstyled";
-import Drawer from "components/Drawer";
-import SideBar, { TabInterface } from "Layout/SideBar/index";
-import MoreSvg from "icons/svg/MoreSvg";
+import Drawer from 'components/Drawer';
+import SideBar, { TabInterface } from 'Layout/SideBar/index';
+import MoreSvg from 'icons/svg/MoreSvg';
 
 interface Option {
   name: string;
@@ -30,21 +30,21 @@ const Header: React.FC<Props> = (props) => {
 
   const optionArr: Array<Option> = [
     {
-      value: "en",
-      name: "English",
+      value: 'en',
+      name: 'English',
     },
     {
-      value: "zh",
-      name: "中文(简体)",
+      value: 'zh',
+      name: '中文(简体)',
     },
     {
-      value: "tzh",
-      name: "中文(繁体)",
+      value: 'tzh',
+      name: '中文(繁体)',
     },
   ];
 
   const getClassName = (item: Option) => {
-    return item.value === language ? "bg-blue-100" : "";
+    return item.value === language ? 'bg-blue-100' : '';
   };
 
   return (
@@ -56,7 +56,7 @@ const Header: React.FC<Props> = (props) => {
       </div>
 
       <div>
-        <span>{t("header.text")}: </span>
+        <span>{t('header.text')}: </span>
         <SelectUnstyled
           className="focus-visible:outline-none px-2 border rounded-md"
           value={language}
@@ -65,19 +65,16 @@ const Header: React.FC<Props> = (props) => {
           }}
           componentsProps={{
             listbox: {
-              className: "p-2 bg-gray-50",
+              className: 'p-2 bg-gray-50',
             },
             popper: {
-              className: "z-10",
+              className: 'z-10',
             },
           }}
         >
           {optionArr.map((item) => (
             <OptionUnstyled
-              className={[
-                "cursor-pointer p-1 hover:bg-green-150",
-                getClassName(item),
-              ].join(" ")}
+              className={['cursor-pointer p-1 hover:bg-green-150', getClassName(item)].join(' ')}
               key={item.value}
               value={item.value}
             >

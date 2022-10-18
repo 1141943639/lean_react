@@ -1,12 +1,8 @@
-import { isEmpty, isFunction } from "lodash";
-import React, { cloneElement, ReactElement } from "react";
-import { Route, RouteProps, Switch } from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
-
-interface BaseRouteItem extends RouteProps {
-  type?: string;
-  routes?: BaseRouteItem[];
-}
+import React, { cloneElement, ReactElement } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { isEmpty, isFunction } from 'lodash';
+import PrivateRoute from './PrivateRoute';
+import { BaseRouteItem } from 'types/props/BaseRouteType';
 
 interface IProps {
   routerArr: BaseRouteItem[];
@@ -22,7 +18,7 @@ const BaseRoute: React.FC<IProps> = (props) => {
 
         const Component = (() => {
           switch (type) {
-            case "private":
+            case 'private':
               return PrivateRoute;
             default:
               return Route;

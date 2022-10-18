@@ -1,19 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter as Router } from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-import "tailwindcss/tailwind.css";
-import "./i18n/config";
-import Layout from "Layout";
-import BaseRoute from "components/BaseRoute";
-import NoMatch from "pages/NoMatch";
+import 'tailwindcss/tailwind.css';
+import './i18n/config';
+import Layout from 'Layout';
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <React.StrictMode>

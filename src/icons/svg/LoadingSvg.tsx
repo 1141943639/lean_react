@@ -1,10 +1,13 @@
-import React from "react";
+import React from 'react';
+import clsx from 'clsx';
 
 const LoginSvg = (props: any) => {
+  const { className, ...other } = props;
+
   return (
     <svg
-      {...props}
-      className="icon"
+      {...other}
+      className={clsx([className, 'fill-current'])}
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
       width="200"

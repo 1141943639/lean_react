@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { selectUser } from "slice/auth";
-import { useAppSelector } from "hooks";
-import { Trans } from "react-i18next";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Trans } from 'react-i18next';
+import { selectUser } from 'store/slice/auth';
+import { useAppSelector } from 'hooks/useAppState';
 
 const Profile: React.FC = () => {
   const { user } = useAppSelector(selectUser);

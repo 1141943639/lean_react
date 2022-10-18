@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "store";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from 'store';
 
 interface LoadingState {
   loading: boolean;
@@ -12,13 +12,11 @@ const initialState: LoadingState = {
 };
 
 export const languageSlice = createSlice({
-  name: "loading",
+  name: 'loading',
   initialState,
   reducers: {
     changeLoading(state, action: PayloadAction<boolean>) {
-      let newValue = action.payload
-        ? state.loadingCount + 1
-        : state.loadingCount - 1;
+      let newValue = action.payload ? state.loadingCount + 1 : state.loadingCount - 1;
 
       if (newValue < 0) newValue = 0;
 

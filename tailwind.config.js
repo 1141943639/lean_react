@@ -1,16 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.html",
-    "./src/**/*.js",
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-  ],
+  content: ['./src/**/*.html', './src/**/*.js', './src/**/*.ts', './src/**/*.tsx'],
   theme: {
     extend: {
       zIndex: {
-        "-1": "-1",
-        1200: "1200",
+        '-1': '-1',
+        1200: '1200',
+        9999: '9999',
       },
     },
   },

@@ -1,10 +1,9 @@
-import React, { forwardRef, useState } from "react";
-import { Route, useHistory, useLocation, Switch } from "react-router-dom";
+import React, { forwardRef, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 
-import Tab from "components/Tab";
-import TabsUnstyled from "@mui/base/TabsUnstyled";
-import TabsListUnstyled from "@mui/base/TabsListUnstyled";
-import { isEmpty } from "lodash";
+import TabsUnstyled from '@mui/base/TabsUnstyled';
+import TabsListUnstyled from '@mui/base/TabsListUnstyled';
+import Tab from 'components/Tab';
 
 export interface TabInterface {
   path: string;
@@ -36,27 +35,22 @@ const SideBar = (props: IProps, ref: React.Ref<HTMLDivElement>) => {
   const checkIsActive = (item: TabInterface) => {
     const activeTabPath = location.pathname;
 
-    return item.path === activeTabPath
-      ? "text-blue-500 bg-green-50"
-      : "text-gray-500";
+    return item.path === activeTabPath ? 'text-blue-500 bg-green-50' : 'text-gray-500';
   };
 
   return (
-    <TabsUnstyled
-      ref={ref}
-      className="bg-white flex-shrink-0 h-full w-full p-3"
-    >
+    <TabsUnstyled ref={ref} className="bg-white flex-shrink-0 h-full w-full p-3">
       <TabsListUnstyled className="flex flex-col justify-around">
         {tabList.map((item: TabInterface) => (
           <Tab
             onClick={() => handleClickTab(item)}
             key={item.path}
             className={[
-              "flex p-2 rounded-md w-full items-center h-full fill-current",
+              'flex p-2 rounded-md w-full items-center h-full fill-current',
               checkIsActive(item),
             ]
               .filter((val) => val)
-              .join(" ")}
+              .join(' ')}
           >
             {item.svg && <div className="mr-1">{item.svg}</div>}
             <div className="overflow-ellipsis whitespace-nowrap overflow-hidden flex-1 text-left">

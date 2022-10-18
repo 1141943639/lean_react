@@ -1,12 +1,10 @@
-import { ModalUnstyled, ModalUnstyledProps } from "@mui/base";
-import React, { ReactNode } from "react";
-import LoadingSvg from "icons/svg/LoadingSvg";
-import TransitionWrap from "Transition/TransitionWrap";
-import useFade from "Transition/Fade";
+import React, { ReactNode } from 'react';
+import { ModalUnstyled, ModalUnstyledProps } from '@mui/base';
+import LoadingSvg from 'icons/svg/LoadingSvg';
+import TransitionWrap from 'Transition/TransitionWrap';
+import useFade from 'Transition/Fade';
 
-export type LoadingProps =
-  | { children: ReactNode; open: boolean }
-  | ModalUnstyledProps;
+export type LoadingProps = { children: ReactNode; open: boolean } | ModalUnstyledProps;
 
 const Loading = (props: LoadingProps) => {
   const { open } = props;
@@ -14,15 +12,13 @@ const Loading = (props: LoadingProps) => {
 
   return (
     <>
-      <ModalUnstyled {...props}>
-        <div>
-          <TransitionWrap in={open} childrenStyle={childrenStyle} timeout={200}>
-            <div className="absolute w-screen h-screen flex justify-center items-center bg-opacity-25 bg-black">
-              <LoadingSvg className="w-5 h-5" />
-            </div>
-          </TransitionWrap>
-        </div>
-      </ModalUnstyled>
+      {open && (
+        <TransitionWrap in={open} childrenStyle={childrenStyle} timeout={200}>
+          <div className="absolute w-screen h-screen flex justify-center items-center bg-opacity-25 bg-black z-9999">
+            <LoadingSvg className="w-10 h-10 text-blue-500 animate-spin" />
+          </div>
+        </TransitionWrap>
+      )}
       {props.children}
     </>
   );

@@ -1,10 +1,16 @@
-import Drawer from "components/Drawer";
-import Header from "Layout/Header";
-import SideBar from "Layout/SideBar";
-import React, { ReactNode, useCallback, useEffect, useState } from "react";
+import React, { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { useRouteMatch } from 'react-router-dom';
+import Drawer from 'components/Drawer';
+import Header from 'Layout/Header';
+import SideBar, { TabInterface } from 'Layout/SideBar';
+import { getRouteByPath } from 'routes';
 
-const Wrap: React.FC<{ routes?: ReactNode; tabList: Array<any> }> = (props) => {
-  const { tabList } = props;
+const Wrap: React.FC<{ routes?: ReactNode }> = (props) => {
+  const match = useRouteMatch();
+
+  const tabList = useMemo(() => {
+    return (getRouteByPath(match.path)?.routes || []) as TabInterface[];
+  }, [match]);
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -17,13 +23,13 @@ const Wrap: React.FC<{ routes?: ReactNode; tabList: Array<any> }> = (props) => {
 
     if (ignore) return;
 
-    window.addEventListener("resize", handleCloseDrawer);
+    window.addEventListener('resize', handleCloseDrawer);
 
     return () => {
       ignore = true;
-      window.removeEventListener("resize", handleCloseDrawer);
+      window.removeEventListener('resize', handleCloseDrawer);
     };
-  }, []);
+  }, [handleCloseDrawer]);
 
   return (
     <div className="flex h-full">
